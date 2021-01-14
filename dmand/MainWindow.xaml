@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:dmand"
         xmlns:converters="clr-namespace:dmand"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="dmand" Height="660" Width="660">
     <Window.Resources>
         <converters:TypeConverter x:Key="TypeConverter"/>
         <converters:LengthConverter x:Key="LengthConverter"/>
@@ -37,7 +37,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Size" IsReadOnly="True" SortMemberPath="Length" Width="150">
+                <DataGridTemplateColumn Header="Size" IsReadOnly="True" SortMemberPath="Length" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Margin="2,0,2,1" VerticalAlignment="Center" HorizontalAlignment="Right">
