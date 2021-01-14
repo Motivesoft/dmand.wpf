@@ -21,16 +21,33 @@ namespace dmand
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly string defaultLocation = Environment.GetFolderPath( Environment.SpecialFolder.MyDocuments );
+
+        public MainWindow( string[] args )
         {
             InitializeComponent();
 
-            UpdateView( @"C:\Users\ian\source\repos\dmand\dmand\bin\Debug\net5.0-windows\" );
+            var location = defaultLocation;
+            if ( args.Length > 0 )
+            {
+                var candidate = args[ 0 ];
+                if ( Directory.Exists( candidate ) )
+                {
+                    location = candidate;
+                }
+                else if ( File.Exists( candidate ) )
+                {
+                    location = Directory.GetParent( candidate ).FullName;
+                }
+            }
+
+            UpdateView( location );
         }
 
         private void UpdateView( string location )
         {
             Contents.Items.Clear();
+            Location.Text = location;
 
             foreach ( var file in Directory.GetDirectories( location ) )
             {

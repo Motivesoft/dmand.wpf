@@ -14,7 +14,7 @@
         <converters:IconConverter x:Key="IconConverter"/>
     </Window.Resources>
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="TextBox" TextWrapping="NoWrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="Location" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="TextBox" TextWrapping="NoWrap" VerticalAlignment="Top"/>
         <DataGrid x:Name="Contents" Margin="0,23,0,0" 
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
                   SelectionUnit="FullRow" AutoGenerateColumns="False" GridLinesVisibility="None">
