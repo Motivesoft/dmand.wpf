@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace dmand
@@ -72,9 +74,6 @@ namespace dmand
             }
             else
             {
-                if ( key == Key.Down )
-                {
-                }
             }
         }
 
@@ -83,6 +82,15 @@ namespace dmand
             UpdateKeyStates();
 
             var key = e.Key == Key.System ? e.SystemKey : e.Key;
+            if ( Location.IsFocused && key == Key.Down )
+            {
+                Contents.Focus();
+                if ( gridFocus != null )
+                {
+                    Keyboard.Focus( gridFocus );
+                }
+                e.Handled = true;
+            }
         }
 
         private void Grid_PreviewKeyUp( object sender, KeyEventArgs e )
@@ -109,5 +117,12 @@ namespace dmand
         {
             get; set;
         }
+
+        private void Contents_LostKeyboardFocus( object sender, KeyboardFocusChangedEventArgs e )
+        {
+            gridFocus = e.OldFocus;
+        }
+
+        IInputElement gridFocus;
     }
 }

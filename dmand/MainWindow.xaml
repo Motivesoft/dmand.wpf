@@ -14,11 +14,45 @@
         <converters:IconConverter x:Key="IconConverter"/>
     </Window.Resources>
     <Grid>
-        <TextBox x:Name="Location" HorizontalAlignment="Stretch" Margin="0,0,0,0" Text="TextBox" TextWrapping="NoWrap" VerticalAlignment="Top"/>
+        
+        <Grid.Resources>
+            <Style TargetType="{x:Type DataGridCell}">
+                <Setter Property="BorderThickness" Value="0" />
+<!--                <Setter Property="FocusVisualStyle" Value="{x:Null}" />-->
+                <Setter Property="Height" Value="20" />
+                <Setter Property="Margin" Value="0,0,0,0" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="Location" Margin="0,0,0,0" Height="23"
+                 PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp" KeyDown="Grid_KeyDown"
+                 Text="TextBox" TextWrapping="NoWrap" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                 TabIndex="1"/>
         <DataGrid x:Name="Contents" Margin="0,23,0,0" 
+                  PreviewKeyDown="Grid_PreviewKeyDown" PreviewKeyUp="Grid_PreviewKeyUp" KeyDown="Grid_KeyDown"
                   CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" 
-                  SelectionUnit="FullRow" AutoGenerateColumns="False" GridLinesVisibility="None">
-
+                  TabIndex="0" SelectionUnit="FullRow" KeyboardNavigation.TabNavigation="Once"
+                  AutoGenerateColumns="False" GridLinesVisibility="None" LostKeyboardFocus="Contents_LostKeyboardFocus">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Style.Setters>
+                        <Setter Property="Focusable" Value="True"/>
+                    </Style.Setters>
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="DataGridCell">
+                    <Style.Setters>
+                        <Setter Property="Focusable" Value="False"/>
+                    </Style.Setters>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Name" SortMemberPath="Name" Width="200">
                     <DataGridTemplateColumn.CellTemplate>
