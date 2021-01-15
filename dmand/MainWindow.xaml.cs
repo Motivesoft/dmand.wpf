@@ -58,7 +58,10 @@ namespace dmand
             new Thread( () => 
             { 
                 Dispatcher.Invoke( () => {
+                    currentGridFocus = Contents.ItemContainerGenerator.ContainerFromIndex( 0 ) as DataGridRow;
+
                     Contents.Focus();
+                    Keyboard.Focus( currentGridFocus );
                 } );
             } ).Start();
         }
@@ -72,8 +75,17 @@ namespace dmand
                 Location.SelectAll();
                 e.Handled = true;
             }
-            else
+            else if ( key == Key.Enter || key == Key.Return )
             {
+                if ( Contents.IsFocused )
+                {
+                    foreach ( var item in Contents.SelectedCells )
+                    {
+                    }
+                }
+                else if ( Location.IsFocused )
+                {
+                }
             }
         }
 
@@ -85,9 +97,9 @@ namespace dmand
             if ( Location.IsFocused && key == Key.Down )
             {
                 Contents.Focus();
-                if ( gridFocus != null )
+                if ( currentGridFocus != null )
                 {
-                    Keyboard.Focus( gridFocus );
+                    Keyboard.Focus( currentGridFocus );
                 }
                 e.Handled = true;
             }
@@ -120,9 +132,9 @@ namespace dmand
 
         private void Contents_LostKeyboardFocus( object sender, KeyboardFocusChangedEventArgs e )
         {
-            gridFocus = e.OldFocus;
+            currentGridFocus = e.OldFocus;
         }
 
-        IInputElement gridFocus;
+        private IInputElement currentGridFocus;
     }
 }
